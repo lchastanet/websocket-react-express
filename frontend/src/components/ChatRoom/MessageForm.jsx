@@ -1,10 +1,16 @@
 import { useState } from "react"
 
-function MessageForm() {
+function MessageForm({ socketInApp, nickName }) {
   const [message, setMessage] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    socketInApp.emit("sendMessage", {
+      id: socketInApp.id,
+      author: nickName,
+      text: message,
+    })
 
     setMessage("")
   }
